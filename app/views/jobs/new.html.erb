@@ -1,0 +1,62 @@
+<main class="page-shell page-shell-narrow">
+  <%= link_to "← Все вакансии", jobs_path, class: "back-link" %>
+  <header class="form-header">
+    <p class="eyebrow">НОВАЯ ЗАПИСЬ</p>
+    <h1>Добавить вакансию</h1>
+    <p class="page-intro">Заполни то, что известно. Дату публикации, компанию и описание можно оставить пустыми.</p>
+  </header>
+
+  <%= form_with model: @job, class: "posting-form" do |form| %>
+    <% if @job.errors.any? %>
+      <div class="form-errors">
+        <p>Проверь обязательные поля:</p>
+        <ul>
+          <% @job.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-field">
+      <%= form.label :title, "Название вакансии" %>
+      <%= form.text_field :title, required: true, autofocus: true, placeholder: "Например, Ruby on Rails Developer" %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :company_name, "Компания" %>
+      <%= form.text_field :company_name, placeholder: "Название компании" %>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-field">
+        <%= form.label :source, "Источник" %>
+        <%= form.text_field :source, required: true, placeholder: "hh.ru, rabota.by…" %>
+      </div>
+      <div class="form-field">
+        <%= form.label :external_id, "ID вакансии на сайте" %>
+        <%= form.text_field :external_id %>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :source_url, "Ссылка на вакансию" %>
+      <%= form.url_field :source_url, required: true, placeholder: "https://…" %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :published_at, "Дата публикации" %>
+      <%= form.datetime_field :published_at %>
+    </div>
+
+    <div class="form-field">
+      <%= form.label :description, "Описание" %>
+      <%= form.text_area :description, rows: 9, placeholder: "Текст вакансии" %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit "Сохранить вакансию", class: "button button-primary" %>
+      <%= link_to "Отмена", jobs_path, class: "cancel-link" %>
+    </div>
+  <% end %>
+</main>
