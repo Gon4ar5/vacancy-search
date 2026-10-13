@@ -7,7 +7,7 @@ gem "json", "~> 2.10"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use PostgreSQL as the database for Active Record
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.7"
 # Store and query vacancy embeddings in PostgreSQL with pgvector.
 gem "neighbor", "~> 0.6.0"
 # Parse Habr Career's public vacancy pages.
