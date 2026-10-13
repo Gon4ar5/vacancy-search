@@ -1,0 +1,41 @@
+<main class="page-shell page-shell-narrow">
+  <%= link_to "← К вакансиям", jobs_path, class: "back-link" %>
+  <header class="form-header">
+    <p class="eyebrow">ПОИСК ПО СМЫСЛУ</p>
+    <h1>Спросить о вакансиях</h1>
+    <p class="page-intro">Ответ будет основан на найденных вакансиях и снабжён ссылками на источники.</p>
+  </header>
+
+  <% if flash[:alert] %>
+    <p class="form-errors"><%= flash[:alert] %></p>
+  <% end %>
+
+  <%= form_with url: question_path, method: :post, class: "posting-form" do |form| %>
+    <div class="form-field">
+      <%= form.label :question, "Ваш вопрос" %>
+      <%= form.text_area :question, value: @question, rows: 4, required: true,
+            placeholder: "Например: Какие навыки чаще всего нужны Rails-разработчику?" %>
+    </div>
+    <div class="form-actions">
+      <%= form.submit "Найти и ответить", class: "button button-primary" %>
+    </div>
+  <% end %>
+
+  <% if @result %>
+    <section class="answer-card" aria-live="polite">
+      <h2>Ответ</h2>
+      <div class="answer-body"><%= simple_format(@result.answer) %></div>
+      <% if @result.sources.any? %>
+        <h3>Вакансии, использованные для ответа</h3>
+        <ol class="answer-sources">
+          <% @result.sources.each do |job| %>
+            <li><%= link_to job.title, job.source_url, target: "_blank", rel: "noopener" %>
+              <% if job.company_name.present? %> — <%= job.company_name %><% end %>
+              <span>(<%= job.source %>)</span>
+            </li>
+          <% end %>
+        </ol>
+      <% end %>
+    </section>
+  <% end %>
+</main>

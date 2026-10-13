@@ -1,0 +1,28 @@
+<main class="page-shell page-shell-narrow">
+  <%= link_to "← Все вакансии", jobs_path, class: "back-link" %>
+
+  <article class="posting-detail">
+    <p class="eyebrow"><%= @job.source %></p>
+    <h1><%= @job.title %></h1>
+    <% if @job.company_name.present? %>
+      <p class="detail-company"><%= @job.company_name %></p>
+    <% end %>
+
+    <dl class="posting-meta">
+      <% if @job.published_at.present? %>
+        <div><dt>Опубликована</dt><dd><%= l(@job.published_at, format: :long) %></dd></div>
+      <% end %>
+      <% if @job.external_id.present? %>
+        <div><dt>ID на источнике</dt><dd><%= @job.external_id %></dd></div>
+      <% end %>
+      <div><dt>Источник</dt><dd><%= link_to @job.source_url, @job.source_url, target: "_blank", rel: "noopener" %></dd></div>
+    </dl>
+
+    <% if @job.description.present? %>
+      <section class="description-section">
+        <h2>Описание</h2>
+        <div class="description-body"><%= simple_format(@job.description) %></div>
+      </section>
+    <% end %>
+  </article>
+</main>

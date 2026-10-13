@@ -1,0 +1,17 @@
+:queues:
+  - default
+
+:scheduler:
+  :schedule:
+    import_habr_career:
+      cron: "0 */30 * * * *"
+      class: HabrCareer::ImportVacanciesJob
+      queue: default
+    import_hirify:
+      cron: "0 */30 * * * *"
+      class: Hirify::ImportVacanciesJob
+      queue: default
+    import_hh:
+      cron: "0 */30 * * * *"
+      class: Hh::ImportVacanciesJob
+      queue: default

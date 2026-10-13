@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#55708c"/></marker><style>
+text{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#182b3b}.title{font-size:30px;font-weight:700}.sub{font-size:16px;fill:#527087}.head{font-size:19px;font-weight:650}.body{font-size:15px}.small{font-size:13px;fill:#425b70}.box{fill:#fff;stroke:#b8cad8;stroke-width:2}.blue{fill:#edf6ff;stroke:#76a9d4}.green{fill:#edfaf4;stroke:#80bea0}.purple{fill:#f5f0ff;stroke:#a994d4}.orange{fill:#fff6e9;stroke:#d8aa68}.line{fill:none;stroke:#55708c;stroke-width:2.4;marker-end:url(#a)}
+</style></defs>
+<rect width="1200" height="760" rx="24" fill="#f7fafc"/>
+<text x="60" y="62" class="title">Архитектура сервиса поиска вакансий</text><text x="60" y="92" class="sub">Сбор вакансий и ответы на вопросы с поиском по смыслу (RAG)</text>
+<!-- sources -->
+<rect x="55" y="150" width="230" height="150" rx="16" class="box"/><text x="80" y="185" class="head">Источники вакансий</text><text x="80" y="220" class="body">Habr Career</text><text x="80" y="246" class="body">Hirify · hh.ru</text><text x="80" y="274" class="small">страницы и описания</text>
+<!-- rails -->
+<rect x="365" y="150" width="260" height="150" rx="16" class="blue"/><text x="390" y="185" class="head">Rails-приложение</text><text x="390" y="220" class="body">Импорт · бизнес-логика</text><text x="390" y="246" class="body">Веб-интерфейс · вопросы</text><text x="390" y="274" class="small">Active Record · Active Job</text>
+<!-- db -->
+<rect x="735" y="130" width="400" height="200" rx="16" class="green"/><text x="765" y="168" class="head">PostgreSQL + pgvector</text><text x="765" y="207" class="body">jobs — вакансии и исходные ссылки</text><text x="765" y="236" class="body">job_chunks — фрагменты текста</text><text x="765" y="265" class="body">embedding — вектор фрагмента</text><text x="765" y="300" class="small">поиск ближайших векторов по cosine distance</text>
+<path d="M285 220 H355" class="line"/><path d="M625 220 H725" class="line"/>
+<!-- background -->
+<rect x="365" y="390" width="260" height="150" rx="16" class="orange"/><text x="390" y="425" class="head">Sidekiq + Redis</text><text x="390" y="460" class="body">Фоновые импорты</text><text x="390" y="486" class="body">Индексация вакансий</text><text x="390" y="514" class="small">повторы и обработка задач</text>
+<path d="M495 300 V380" class="line"/><path d="M625 465 H690 V300 H725" class="line"/>
+<!-- ai -->
+<rect x="735" y="405" width="400" height="150" rx="16" class="purple"/><text x="765" y="442" class="head">OpenAI API</text><text x="765" y="477" class="body">Embeddings: текст → вектор</text><text x="765" y="503" class="body">LLM: ответ по найденным фрагментам</text><text x="765" y="531" class="small">внешний API, ключ передаётся через env</text>
+<path d="M625 465 H725" class="line"/><path d="M935 330 V395" class="line"/>
+<!-- question flow -->
+<rect x="55" y="605" width="1080" height="100" rx="16" fill="#fff" stroke="#cbd6df" stroke-width="2"/><text x="80" y="640" class="head">Поток ответа на вопрос</text><text x="80" y="674" class="body">Вопрос → embedding запроса → поиск 6 ближайших фрагментов в pgvector → LLM формирует ответ → ответ + ссылки на вакансии</text>
+<path d="M880 555 V590" class="line"/>
+</svg>
