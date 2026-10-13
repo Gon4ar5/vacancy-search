@@ -13,7 +13,7 @@ gem "neighbor", "~> 0.6.0"
 # Parse Habr Career's public vacancy pages.
 gem "nokogiri", "~> 1.19"
 # Run long-running imports outside the web process.
-gem "sidekiq", "~> 7.3"
+gem "sidekiq", "~> 8.0"
 gem "sidekiq-scheduler", "~> 6.0"
 # Sidekiq 7.3's scheduler currently expects the 2.x TimedStack API.
 gem "connection_pool", "~> 2.5"
