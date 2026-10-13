@@ -16,7 +16,7 @@ gem "nokogiri", "~> 1.19"
 gem "sidekiq", "~> 7.3"
 gem "sidekiq-scheduler", "~> 6.0"
 # Sidekiq 7.3's scheduler currently expects the 2.x TimedStack API.
-gem "connection_pool", "~> 2.5"
+gem "connection_pool", "~> 3.0"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
