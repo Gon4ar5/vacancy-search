@@ -9,7 +9,7 @@ gem "propshaft"
 # Use PostgreSQL as the database for Active Record
 gem "pg", "~> 1.5"
 # Store and query vacancy embeddings in PostgreSQL with pgvector.
-gem "neighbor", "~> 0.6.0"
+gem "neighbor", "~> 1.2.0"
 # Parse Habr Career's public vacancy pages.
 gem "nokogiri", "~> 1.19"
 # Run long-running imports outside the web process.
