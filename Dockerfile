@@ -15,6 +15,8 @@ RUN bundle install
 
 COPY . .
 
+RUN SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production ./bin/rails assets:precompile
+
 EXPOSE 3000
 
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
