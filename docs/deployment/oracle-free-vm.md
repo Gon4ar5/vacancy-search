@@ -29,6 +29,8 @@ cd vacancy-search
 Copy `env.production.example` to `.env.production` on the VM. Set a unique,
 long `DB_PASSWORD`, and copy the existing Rails master key into
 `RAILS_MASTER_KEY`. Add `OPENAI_API_KEY` only if you want AI-backed features.
+Set `APP_DOMAIN` to `<your-public-ip-with-dashes>.sslip.io`, for example
+`92-5-129-253.sslip.io` for `92.5.129.253`.
 Restrict the file to the VM user (`chmod 600 .env.production`). Never commit it.
 
 ## 4. Build and start
@@ -39,9 +41,10 @@ sudo docker compose --env-file .env.production -f docker-compose.production.yml 
 sudo docker compose --env-file .env.production -f docker-compose.production.yml logs -f web worker
 ```
 
-Rails prepares the production database when the web container starts. The web
-container listens only on the VM's loopback interface at port 3000. Put a reverse
-proxy with HTTPS in front of it before sharing the app publicly.
+Rails prepares the production database when the web container starts. Caddy
+terminates HTTPS and proxies requests to Rails over the private Docker network.
+In the OCI subnet security list, allow inbound TCP 80 and 443. Do not expose
+ports 3000, 5432, or 6379 publicly.
 
 ## 5. Verify and maintain
 

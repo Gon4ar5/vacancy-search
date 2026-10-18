@@ -40,13 +40,27 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env.production}
       REDIS_URL: redis://redis:6379/0
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
-    ports:
-      - "127.0.0.1:3000:3000"
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?Set APP_DOMAIN in .env.production}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
 
   worker:
     build: .
@@ -62,3 +76,5 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  caddy_data:
+  caddy_config:
