@@ -6,6 +6,50 @@ on:
     branches: [ main ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: matchmate
+          POSTGRES_PASSWORD: ci_test_password
+          POSTGRES_DB: matchmate_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U matchmate -d matchmate_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Prepare test database
+        run: bundle exec rails db:prepare
+        env:
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+          DB_USERNAME: matchmate
+          DB_PASSWORD: ci_test_password
+
+      - name: Run RSpec
+        run: bundle exec rspec
+        env:
+          RAILS_ENV: test
+          DB_HOST: 127.0.0.1
+          DB_USERNAME: matchmate
+          DB_PASSWORD: ci_test_password
+
   scan_ruby:
     runs-on: ubuntu-latest
 
@@ -36,4 +80,3 @@ jobs:
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
-
